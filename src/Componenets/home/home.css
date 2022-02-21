@@ -1,0 +1,19 @@
+.maincontent{
+    margin-left: 380px;
+    margin-top: 50px;
+    border-radius: 5px;
+    height:350px;
+    width: 300px;
+}
+.sub{
+    margin-top: 50px;
+    margin-left: 10px;
+    border-radius: 5px;
+    width: 300px;
+}
+.bottom{
+    justify-content:flex-end;
+    display: flex;
+    color: rgb(47, 135, 235); 
+    margin-top: 85px;   
+}
