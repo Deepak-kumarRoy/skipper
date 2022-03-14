@@ -1,0 +1,17 @@
+.heading{
+    display: flex;
+    align-items: center;
+}
+/* sx={{ marginLeft: 2, marginY: 1, color:'white' }} typo */
+/* sx={{ maxWidth: 1400, marginTop:-2, alignItems: 'center', borderRadius: 1, backgroundColor: 'rgb(56, 134, 252)' }} */
+.display
+{
+    margin-top: -16px;
+}
+
+.title{
+    padding: 5px;
+    background-color: rgb(56, 134, 252) ;
+    color: white;
+}
+

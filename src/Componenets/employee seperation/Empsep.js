@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import Subform from './Subform';
+import './empsep.css';
+import Navbar from '../Navbar';
 
 const input = [
     {
@@ -52,23 +57,42 @@ export default function Form() {
     const [empid, setEmpId] = useState('');
     const [desg, setDesg] = useState('');
     const [date, setDate] = useState('');
+    const [subform, setSubform] = useState(false);
+
+    let navigate = useNavigate();
+
+    useEffect(() => {
+      {window.localStorage.getItem("response")? navigate('/empsep'):navigate('/')}
+      var Obj = window.localStorage.getItem("response");
+      setEmail(JSON.parse(Obj).userLogin.email_id)
+    },[]);
 
     var today = new Date();
 
+    const next = () => {
+        if(!empname||!empid||!desg||!date||!location){
+            alert("Fill all the columns")
+        }else{
+        setSubform(true);
+    }
+    }
+    console.log(email)
     return (
+        <>
+        <Navbar />
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': { m: 3, width: '25ch' }, marginTop: 10, marginLeft: 30
+                '& .MuiTextField-root': { m: 3, width: '25ch' }, marginTop: 10, 
             }}
             noValidate
             autoComplete="off"
         >
-            <div>
-                <Typography component="div" variant="h5" sx={{ marginLeft: 44 }}>
-                    IT ASSET REQUISITION FORM
-                </Typography><hr />
-            </div>
+            <div className='heading'>
+                <Typography component="div" variant="h5" >
+                    IT Employee Seperation FORM
+                </Typography>
+            </div><hr />
             <div>
                 <TextField
                     label="Email"
@@ -76,6 +100,7 @@ export default function Form() {
                     value={email}
                     onChange={(e) => { setEmail(e.target.value) }}
                     required
+                    disabled
                     size="small"
                 />
 
@@ -101,16 +126,20 @@ export default function Form() {
                     value={other}
                     onChange={(e) => { setOther(e.target.value) }}
                     size="small"
-                />
+                /><hr/>
 
-                <Button variant="contained" size="small" sx={{ marginLeft: 4, marginY: 3.5 }}> Next </Button><hr />
-
-                <Card sx={{ maxWidth: 1200, marginTop:-2, alignItems: 'center', borderRadius: 1, backgroundColor: 'rgb(56, 134, 252)' }}>
-                <Typography component="div" variant="h6" sx={{ marginLeft: 2, marginY: 1, color:'white' }}>
+                {/* <div>
+                <Button variant="contained" size="small" sx={{ marginLeft: 4, marginY: 3.5 }}> Next </Button>
+                </div> */}
+                <div className='display'>
+                <Card >
+                <div className='title'>
+                <Typography component="div" variant="h6" >
                     Employee Details
                 </Typography>
+                </div>
                 </Card>
-
+                </div>
                 <TextField
                     label="Employee Name"
                     id="outlined-size-small"
@@ -142,19 +171,17 @@ export default function Form() {
                     value={date}
                     onChange={(e) => { setDate(e.target.value) }}
                     required
-                    placeholder={today}
                     size="small"
                 />
+                {/* <Button variant="contained" size="small"  sx={{marginTop:3.5}}> <ArrowForwardIosIcon /> <ArrowForwardIosIcon /></Button> */}
+                {/* <ArrowForwardIosIcon className='next-btn'></ArrowForwardIosIcon> */}
+                <Button variant="text"sx={{marginTop:3.5}} onClick={()=>{next()}}><ArrowForwardIosIcon /></Button>
             </div>
-
-            <Card>
-            <Typography component="div" variant="h6" sx={{ marginLeft: 2, marginY: 1, color:'white' }}>
-                    Return Of It Asset Details
-                </Typography>
-
-
-            </Card>
-
+             {subform?<Subform />:""}
+            
+            
+           <hr />
         </Box>
+        </>
     );
 }

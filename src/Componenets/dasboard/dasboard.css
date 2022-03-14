@@ -1,0 +1,98 @@
+.mainhead{
+    flex: 1;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 70px;
+    width: 380px;
+    margin-left: 10px;
+    
+    
+  }
+  .smenu{
+    /* background-image: linear-gradient(to top, rgba(57, 209, 201, 0.651), rgb(83, 139, 204)); */
+    background-color:  cornsilk;
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    box-shadow: px;
+    transition: 0.3s;
+  }
+  .smenu:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  @media screen and (max-width: 650px) {
+    .mainhead{
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      justify-content:  space-between;
+      width: 95%;
+      /* margin-top: 10px; */
+    }
+  }
+
+
+
+  .allCard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .card {
+    margin-top: 70px;
+    border-radius: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    display: flex;
+    flex-direction: row;
+    background: radial-gradient(#fad8df, #f5a5b9);
+    color: rgba(66, 66, 66, 0.9);
+     /* margin-left: 50px; */
+    /* margin-right: auto;  */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    /* width: 20%; */
+    
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 18em;
+    /* display: flex;
+   flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    padding: 50px;
+  }
+
+  @media screen and (max-width: 650px) {
+    .allCard{
+      padding: 60px;;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* justify-content: space-evenly; */
+      /* margin-top: -20px; */
+    }
+    .card {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+   
+       /* margin-left: 50px; */
+      /* margin-right: auto;  */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      /* width: 20%; */
+      
+    }
+
+  }
+  /* #0d6efd; */
+  /* #0d6efd; */

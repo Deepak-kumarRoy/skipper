@@ -1,0 +1,12 @@
+.back{
+    background-color: white;
+    border-radius: 5px;
+    margin-left: 35px;
+  }
+  .alignment{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import "./inbox.css";
+import "./approvereq.css";
+import Navbar from '../Navbar';
+import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70},
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  { field: 'age', headerName: 'Age', type: 'number', width: 70,},
+  { field: 'client_id', headerName: 'Client ID', width: 85},
+  { field: 'description', headerName: 'Description', width: 640 },
   {
     field: 'fullName',
     headerName: 'Full name',
@@ -16,6 +17,11 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
+  { field: 'dode', headerName: 'DODE', width: 110},
+  { field: 'status', headerName: 'Status', width: 70},
+  { field: 'pause', headerName: 'Pause', width: 70},
+  { field: 'parent', headerName: 'Parent', width: 70},
+  
 ];
 
 const rows = [
@@ -30,11 +36,16 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export default function Inbox() {
+export default function Approvereq() {
   return (
-      <div className='container text-center my-3'>
-          <h6>ORDER LINE ITEMS</h6>
-    <div className='back'  style={{ height: 370, width: '100%' }}>
+    <>
+      <Navbar />
+      <div className='alignment'>
+      <Typography component="div" variant="h5" >
+           PENDING REQUESTS
+        </Typography>
+        </div> 
+    <div className='back'  style={{ height: 370, width: '95%', }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -43,6 +54,6 @@ export default function Inbox() {
         checkboxSelection
       />
     </div>
-    </div>
+    </>
   );
 }

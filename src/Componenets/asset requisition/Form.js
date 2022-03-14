@@ -1,10 +1,14 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
+import Navbar from '../Navbar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import './form.css';
 import Hrform from './Hrform';
+import Itform from './Itform';
 
 const input = [
     {
@@ -26,21 +30,31 @@ export default function Form() {
     const [person, setPerson] = useState('');
     const [email, setEmail] = useState('');
 
+    let navigate = useNavigate();
+
+    useEffect(() => {
+      {window.localStorage.getItem("response")? navigate('/form'):navigate('/')}
+      var Obj = window.localStorage.getItem("response");
+      setEmail(JSON.parse(Obj).userLogin.email_id)
+    },[]);
+
 
   return (
+    <>
+    <Navbar />
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 3, width: '25ch' }, marginTop:10, marginLeft:30
+        '& .MuiTextField-root': { m: 3, width: '25ch' }, marginTop:10
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
-        <Typography component="div" variant="h5" sx={{ marginLeft: 44 }}>
+      <div className='heading'>
+        <Typography component="div" variant="h5" >
            IT ASSET REQUISITION FORM
-        </Typography><hr />
-      </div>
+        </Typography>
+      </div><hr />
       <div>
         <TextField
           label="Email"
@@ -48,6 +62,7 @@ export default function Form() {
           value={email}
           onChange={(e)=>{setEmail(e.target.value)}}
           required
+          disabled
           size="small"
         />
 
@@ -65,14 +80,19 @@ export default function Form() {
               {option.label}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField><hr />
 
-        <Button variant="contained" size="small" sx={{ marginLeft: 4, marginY: 3.5 }}> Next </Button><hr />
+        {/* <Button variant="contained" size="small" sx={{ marginLeft: 4, marginY: 3.5 }}> Next </Button> */}
         
-      </div>
-           
-            <Hrform />
+      </div><>
+           {person == "IF You are HR Person"? <Hrform />
+            :
+            <>
+            { person == "IF You are IT Person"? <Itform />: " "}
+            </>}
+            </>  
 
     </Box>
+    </>
   );
 }

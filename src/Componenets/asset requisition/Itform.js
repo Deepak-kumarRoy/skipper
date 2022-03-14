@@ -5,21 +5,29 @@ import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import './form.css';
 
-const asset = [
+const input = [
     {
-      value: 'Laptop',
-      label: 'Laptop',
+        value: 'Yes',
+        label: 'Yes',
     },
     {
-      value: 'IF You are IT Person',
-      label: 'IF You are IT Person',
+        value: 'No',
+        label: 'No',
+    },
+];
+
+const input1 = [
+    {
+        value: 'Active',
+        label: 'Active',
     },
     {
-      value: 'Option 3',
-      label: 'Option 3',
+        value: 'Closed',
+        label: 'Closed',
     },
-  ];
+];
 
 
 export default function Itform() {
@@ -46,11 +54,15 @@ export default function Itform() {
             noValidate
             autoComplete="off"
         >
-            <Card sx={{ maxWidth: 1200, alignItems: 'center', borderRadius: 1, backgroundColor: 'rgb(56, 134, 252)' }}>
-                <Typography component="div" variant="h6" sx={{ marginLeft: 2, marginY: 1, color:'white' }}>
-                Return Of It Asset Details
+            <div className='display'>
+            <Card >
+            <div className='title'>
+                <Typography component="div" variant="h6" >
+                    Please Provide Details in the Following Format (To be Filled By IT)
                 </Typography>
+            </div>
             </Card>
+            </div>
             <div>
                 <TextField
                     id="outlined-size-small"
@@ -60,7 +72,6 @@ export default function Itform() {
                     required
                     value={Status}
                     onChange={(e)=>{setStatus(e.target.value)}}
-                    required
                 >
                     {input1.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -94,7 +105,7 @@ export default function Itform() {
                     value={padate}
                     onChange={(e)=>{setPadate(e.target.value)}}
                     required
-                    defaultValue="2017-05-24"
+                    // defaultValue="2017-05-24"
                     size="small"
                 />
 
@@ -105,7 +116,7 @@ export default function Itform() {
                     value={adate}
                     onChange={(e)=>{setAdate(e.target.value)}}
                     required
-                    defaultValue="2017-05-24"
+                    // defaultValue="2017-05-24"
                     size="small"
                 />
 
@@ -117,7 +128,7 @@ export default function Itform() {
                     required
                     value={poso}
                     onChange={(e)=>{setPoso(e.target.value)}}
-                    required
+                
                 >
                     {input.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -160,7 +171,7 @@ export default function Itform() {
                     value={vsdate}
                     onChange={(e)=>{setVsdate(e.target.value)}}
                     required
-                    defaultValue="2017-05-24"
+                    // defaultValue="2017-05-24"
                     size="small"
                 />
 
@@ -172,7 +183,7 @@ export default function Itform() {
                     required
                     value={handover}
                     onChange={(e)=>{setHandover(e.target.value)}}
-                    required
+                    
                 >
                     {input.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -190,8 +201,8 @@ export default function Itform() {
                     required
                 />
 
-                <div >
-                    <Button variant="contained"  size="small" sx={{ marginLeft: 65, marginY: 1 }}> Submit </Button><hr />
+                <div className='heading'>
+                    <Button variant="contained"  size="small" sx={{ marginTop:3.5,ml:8 }}> Submit </Button><hr />
                 </div>
 
             </div>

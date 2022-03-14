@@ -8,6 +8,11 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import './form.css';
+import FormLabel from '@mui/material/FormLabel';
 
 const input = [
     {
@@ -115,11 +120,15 @@ export default function Hrform() {
             noValidate
             autoComplete="off"
         >
-            <Card sx={{ maxWidth: 1200, alignItems: 'center', borderRadius: 1, backgroundColor: 'rgb(56, 134, 252)' }}>
-                <Typography component="div" variant="h6" sx={{ marginLeft: 2, marginY: 1, color: 'white' }}>
+            <div className='display'>
+            <Card >
+            <div className='title'>
+                <Typography component="div" variant="h6" >
                     Please Provide Details in the Following Format All HR Person
                 </Typography>
+            </div>
             </Card>
+            </div>
             <div>
                 <TextField
                     label="Name Of Requistioner"
@@ -146,7 +155,6 @@ export default function Hrform() {
                     value={reqdate}
                     onChange={(e)=>{setReqdate(e.target.value)}}
                     required
-                    defaultValue="2017-05-24"
                     size="small"
                 />
 
@@ -167,6 +175,19 @@ export default function Hrform() {
                     onChange={(e)=>{setHodEmail(e.target.value)}}
                     required
                 />
+                
+                {/* <FormControl >
+                    <p className='appearance' id="demo-radio-buttons-group-label" required>Email Id Of IT Head</p>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="subrata.roy@skipperlimited.com"
+                            name="radio-buttons-group"
+                            required
+                            >
+                    <FormControlLabel className='appear' value="subrata.roy@skipperlimited.com" control={<Radio />} label="subrata.roy@skipperlimited.com" />
+                        </RadioGroup>
+                    </FormControl> */}
+                
 
                 <TextField
                     label="Email Id Of IT Head"
@@ -174,7 +195,7 @@ export default function Hrform() {
                     size="small"
                     value={itheademail}
                     onChange={(e)=>{setItheadEmail(e.target.value)}}
-                    defaultValue="subrata.roy@skipperlimited.com"
+                    // defaultValue="subrata.roy@skipperlimited.com"
                     required
                 />
 
@@ -186,7 +207,6 @@ export default function Hrform() {
                     required
                     value={item}
                     onChange={(e)=>{setItem(e.target.value)}}
-                    required
                 >
                     {input1.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -212,7 +232,6 @@ export default function Hrform() {
                     required
                     value={mailaccess}
                     onChange={(e)=>{setMailAccess(e.target.value)}}
-                    required
                 >
                     {input.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -229,7 +248,6 @@ export default function Hrform() {
                     required
                     value={mobaccess}
                     onChange={(e)=>{setMobAccess(e.target.value)}}
-                    required
                 >
                     {input2.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -244,7 +262,7 @@ export default function Hrform() {
                     size="small"
                     value={id}
                     onChange={(e)=>{setId(e.target.value)}}
-                    defaultValue="it.ulb1@skipperlimited.com"
+                    // defaultValue="it.ulb1@skipperlimited.com"
                     required
                 />
 
@@ -252,11 +270,10 @@ export default function Hrform() {
                     id="outlined-size-small"
                     select
                     size="small"
-                    label="Email Access On Mobile"
+                    label="Location"
                     required
                     value={location}
                     onChange={(e)=>{setLocation(e.target.value)}}
-                    required
                 >
                     {loc.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -272,7 +289,7 @@ export default function Hrform() {
                     value={jdate}
                     onChange={(e)=>{setJdate(e.target.value)}}
                     required
-                    defaultValue="2017-05-24"
+                    // defaultValue="2017-05-24"
                     size="small"
                 />
 
@@ -336,11 +353,11 @@ export default function Hrform() {
                     size="small"
                     value={resemail}
                     onChange={(e)=>{setResEmail(e.target.value)}}
-                    defaultValue="itd@skipperlimited.com"
+                    // defaultValue="itd@skipperlimited.com"
                     required
                 />
-
-                <FormControl fullWidth sx={{ m: 3, maxWidth:1038 }}>
+                <div className='com'>
+                <FormControl  >
                     <InputLabel htmlFor="outlined-adornment-amount">Comments By HR/Requistioner</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-amount"
@@ -349,10 +366,10 @@ export default function Hrform() {
                         label="Comments By HR/Requistioner"
                     />
                 </FormControl>
-
-                <div >
-                    <Button variant="contained" size="small" sx={{ marginLeft: 65, marginY: 1 }}> Submit </Button><hr />
                 </div>
+                <div className='heading'>
+                    <Button variant="contained" size="small" > Submit </Button>
+                 </div>
 
             </div>
         </Box>

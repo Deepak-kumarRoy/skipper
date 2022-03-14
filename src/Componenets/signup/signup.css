@@ -1,0 +1,70 @@
+@media screen and (min-width: 651px){
+    .cards{
+        margin-top:100px ;
+        border-radius: 5px;
+        /* display: flex; */
+        align-items: center;
+    }
+    .images {
+        margin-top: 20px;
+        width: 620px;
+        height: 450px;
+    }
+    .wrap{
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+    }
+     .signupform {
+        /* margin-left: -80px; */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: end;
+        flex-grow:inherit;
+    }
+    .head{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .but{
+        margin-left: 120px;
+       
+    }
+    .para{
+        margin-bottom: 20px;
+    }
+ 
+  }
+
+  @media screen and (max-width: 650px) {
+    .cards{
+        margin-top:10px ;
+        border-radius: 5px;
+    }
+    .images {
+        width: 370px;
+        height: 200px;
+        margin-bottom: 10px;
+    }
+    .wrap{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+     .signupform {
+        margin-top: 30px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center
+    }
+    .but{
+        margin-left: 120px;
+    }
+    .head{
+        margin-left: 50px;
+    }
+  } 

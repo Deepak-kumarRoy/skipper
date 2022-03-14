@@ -1,54 +1,8 @@
-// import React, { useState } from "react";
-// import "./login.css";
-
-// export default function Login() {
-
-//     const [username, setUsertName] = useState("");
-//     const [password, setPassword] = useState("");
-
-//     const submit = (e) => {
-//         e.preventDefault();
-//         console.log(username, password);
-//         setUsertName("");
-//         setPassword("");
-//     }
-
-//     return (
-//         <div className="container maincontainer card col-md-8 my-5">
-//         <div className="row">
-//             <div className="col-md-6">
-//                 <img src={require('../../login.jpg')} className="img-fluid rounded-start" alt="..." />
-//             </div>
-//             <div className="container col-md-4 mt-5">
-//                 <div className="text-center mt-4"><h3> User Login </h3></div><hr />
-//                 <form onSubmit={submit}>
-//                     <div className="mb-3">
-//                         <label className="form-label">Username </label>
-//                         <input type="email" className="form-control inp" placeholder="username" value={username}  onChange={(e)=>{setUsertName(e.target.value)}}/>
-//                     </div>
-//                     <div className="mb-3">
-//                         <label className="form-label">Password</label>
-//                         <input type="password" className="form-control inp" placeholder="password" value={password}  onChange={(e)=>{setPassword(e.target.value)}}/>
-//                     </div>
-//                     <div className="mb-3 form-check">
-//                         <input type="checkbox" className="form-check-input" />
-//                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
-//                     </div>
-//                     <center><button type="submit" className="btn btn-success container mb-3 inp">Login</button>
-//                         <p><small>Not Registered yet? <a href="">Signup</a></small></p></center>
-//                 </form>
-//             </div>
-//         </div>
-//         </div>
-//     );
-// }
-
-
-
 import React,{useState} from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -62,53 +16,115 @@ import Checkbox from '@mui/material/Checkbox';
 export default function Login() {
     const theme = useTheme();
 
-    const [username, setUsertName] = useState("");
+    const [email_id, setEmailId] = useState("");
     const [password, setPassword] = useState("");
+    const [client_id, setClient_Id] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const navigate = useNavigate();
+
+    const emailRegex = /\S+@\S+\.\S+/;
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(username, password);
-        setUsertName("");
-        setPassword("");
-    }
-
+        if (!emailRegex.test(email_id)) {
+            setIsValid(false);
+            setMessage('Please enter a valid email!');
+        
+          } else{
+        
+        if(!client_id || !email_id || !password )
+        {
+            alert("Fields Cannot be empty");
+        }else{
+        fetch(
+            'http://localhost:5000/authentication/login',
+            {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({"client_id":client_id, "email_id":email_id, "password":password}),
+            }
+          )
+            .then((response) => response.json())
+            .then((response) => {
+                if (response.Message === "invalid credentials" || response.Message === "password is wrong")
+                {
+                    alert(response.Message);
+                }else{
+                    window.localStorage.setItem("response", JSON.stringify(response));
+                    navigate('/dashboard');
+                    setEmailId("");
+                    setPassword("");
+                    setClient_Id("");   
+                }
+            })
+            .catch((error) => { 
+              console.error(error);
+            });    
+        }
+          }
     
+    }
 
     return (
         <Container >
-            <Card sx={{ display: 'flex', maxWidth: 1200, marginTop: 10, alignItems: 'center', borderRadius: 5 }}>
+           <div className='top'>
+            <Card >
+            <div className='main'>
+                <div className='image' >
                 <CardMedia
+                    
                     component="img"
-                    sx={{ width: 450, height:450, marginLeft:10 }}
+                    // sx={{ width: 450, height:450, marginLeft:10 }}
                     img src={require('../../images/sample1.png')}
-                />
+                /></div>
+                <div className='loginform'>
                 <Box
                     component="form"
                     sx={{
-                        '& .MuiTextField-root': { m: 2, width: '35ch' }, marginLeft: 20
+                        '& .MuiTextField-root': { m: 2, width: '35ch' }, 
                     }}
                     Validate
                     autoComplete="off"
                 >
-                    <Typography component="div" variant="h4" sx={{ marginLeft: 8 }}>
+                    {/* <Typography component="div" variant="h4" >
                         User Login
-                    </Typography>
+                    </Typography> */}
+                    <h2>User Login</h2>
                     <hr />
                     <div>
                         <TextField
-                            label="Username"
+                            label="Client-Id"
                             id="outlined-size-small"
                             size="small"
-                            value={username}
-                            onChange={(e) => { setUsertName(e.target.value) }}
+                            value={client_id}
+                            onChange={(e) => { setClient_Id(e.target.value) }}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            label="email_id"
+                            id="outlined-size-small"
+                            size="small"
+                            type="email"
+                            value={email_id}
+                            onChange={(e) => { setEmailId(e.target.value) }}
                         />
 
+                    </div>
+                    <div className={`message ${isValid ? 'success' : 'error'}`}>
+                     {message}
                     </div>
                     <div>
                         <TextField
                             label="Password"
                             id="outlined-size-small"
                             size="small"
+                            type="password"
                             value={password}
                             onChange={(e) => { setPassword(e.target.value) }}
                         />
@@ -123,11 +139,14 @@ export default function Login() {
                     </div>
                     <div>
                         <Typography component="p" variant="small" sx={{ marginLeft: 8 }}>
-                            Not Registered yet? <a href=''>Signup</a>
+                            Not Registered yet? <a href='/signup'>Signup</a>
                         </Typography>
                     </div>
                 </Box>
+                </div>
+                </div>
             </Card>
+           </div>
         </Container>
     );
 }

@@ -2,32 +2,43 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Componenets/login/Login';
 import Home from './Componenets/home/Home';
-import Inbox from './Componenets/inbox/Inbox';
-import Signup from './Componenets/Signup';
+import Approvereq from './Componenets/approve/Approvereq';
 import Navbar from './Componenets/Navbar';
-import Form from './Componenets/Form';
-import Empsep from './Componenets/Empsep';
+import Dashboard from './Componenets/dasboard/Dashboard';
+import Signup from './Componenets/signup/Signup';
+import Form from './Componenets/asset requisition/Form';
+import Empsep from './Componenets/employee seperation/Empsep';
+import Subform from './Componenets/employee seperation/Subform';
+import MaterialPurchased from './Componenets/material/MaterialPurchased';
+import Test from './Componenets/Test';
 
 import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import './App.css';
+import Createreq from './Componenets/create/Createreq';
 
 function App() {
+
+  let Obj = window.localStorage.getItem("response");
+ 
+
   return (
     <div>
-      {/* <Login /> */}
-      {/* <Signup /> */}
-      <Router >
-        <Navbar />
+      <Router > 
         <Routes>
-        <Route exact path='/form' element={<Form />} />
-        <Route exact path='/empsep' element={<Empsep />} />
- 
-          {/* <Route exact path='/' element={<Login />} /> */}
-          {/* <Route exact path='/home' element={<Home />} />
-          <Route exact path='/inbox' element={<Inbox />} />
-          <Route exact path='/signup' element={<Signup />} /> */}
+        <Route exact path='/' element={<Login />} ></Route>
+        <Route exact path='/signup' element={<Signup />} ></Route>
+        <Route exact path='/approvereq' element={<Approvereq />} ></Route>
+        <Route exact path='/form' element={<Form />} > </Route>
+        <Route exact path='/empsep' element={<Empsep />} ></Route>
+        <Route exact path='/subform' element={<Subform />} ></Route>
+        <Route exact path='/dashboard' element={<Dashboard />}></Route>
+        <Route exact path='/test' element={<Test />} ></Route>
+        <Route exact path='/home' element={<Home />} ></Route>
+        <Route exact path='/createreq' element={<Createreq />} ></Route>
+        <Route exact path='/materialpurchased' element={<MaterialPurchased />} ></Route>
+        <Route exact path='/test' element={<Test />} ></Route>
         </Routes>
-      </Router>
+      </Router> 
     </div>
   );
 }
