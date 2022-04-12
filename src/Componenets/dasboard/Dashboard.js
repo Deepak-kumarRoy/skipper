@@ -32,29 +32,7 @@ export default function Dashboard(){
     return(
         <>
         <Navbar />
-{/* 
-        <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-        <Grid item xs={12}>
-        <div className="mainhead">
-      {main.map((item,index)=>{return(
-     <Card key={index} onClick={()=>{navigateTo(index)}} sx={{ boxShadow: 6, m:0.5}}>
-       <div className="smenu">
-      <CardContent>
-        <Typography variant="h6" component="div">
-            {item}
-        </Typography>
-      </CardContent> */}
-      {/* <CardActions>
-        <Button size="small" >{item}</Button>
-      </CardActions> */}
-      {/* </div>
-    </Card>
-    </div>
 
-    </Grid>
-      </Grid>
-    </Box> */}
 
 <div className="allCard">
 {main.map((item,index)=>{return(
@@ -64,12 +42,12 @@ export default function Dashboard(){
   </div>
 </div>
 )})}
-<div className="card">
+<div className="card" onClick={()=>{navigate('/notification')}}>
   <div className="container">
-    <h4><b>John Doe</b></h4>
+    <h4><b>Notification</b></h4>
   </div>
 </div>
-<div className="card">
+<div className="card" >
   <div className="container">
     <h4><b>John Doe</b></h4>
   </div>

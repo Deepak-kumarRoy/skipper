@@ -19,6 +19,7 @@
   }
   .smenu:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    
   }
   @media screen and (max-width: 650px) {
     .mainhead{
@@ -42,8 +43,9 @@
   .card {
     margin-top: 70px;
     border-radius: 10px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: monospace;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
     display: flex;
     flex-direction: row;
     background: radial-gradient(#fad8df, #f5a5b9);
@@ -58,6 +60,7 @@
   
   .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
   }
   
   .container {

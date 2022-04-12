@@ -76,7 +76,7 @@ export default function Signup() {
                 });    
             }
         console.log(user_id, password);
-        setUserId("");
+        setEmailId("");
         setPassword("");
         setClientId("");
         setFirstName("");

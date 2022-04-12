@@ -49,15 +49,16 @@ const input = [
 
 
 export default function Form() {
-
+    
     const [location, setLocation] = useState('');
     const [email, setEmail] = useState('');
     const [other, setOther] = useState('');
     const [empname, setEmpname] = useState('');
     const [empid, setEmpId] = useState('');
     const [desg, setDesg] = useState('');
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState();
     const [subform, setSubform] = useState(false);
+   ;
 
     let navigate = useNavigate();
 
@@ -65,9 +66,15 @@ export default function Form() {
       {window.localStorage.getItem("response")? navigate('/empsep'):navigate('/')}
       var Obj = window.localStorage.getItem("response");
       setEmail(JSON.parse(Obj).userLogin.email_id)
+      setEmpname(JSON.parse(Obj).userLogin.firstname)
+      setEmpId(JSON.parse(Obj).userLogin.user_id)
+
+    //   const minsec = ms('14d')
+    //   const min_date = new Date(+new Date(empsepForm) -minsec )
+    //   setMindate(moment(min_date).format('YYYY-MM-DD'))
     },[]);
 
-    var today = new Date();
+    const formdata = {empname,empid,desg,date,location}
 
     const next = () => {
         if(!empname||!empid||!desg||!date||!location){
@@ -76,7 +83,7 @@ export default function Form() {
         setSubform(true);
     }
     }
-    console.log(email)
+    
     return (
         <>
         <Navbar />
@@ -168,16 +175,20 @@ export default function Form() {
                     id="date"
                     label="Date of exit"
                     type="date"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     value={date}
                     onChange={(e) => { setDate(e.target.value) }}
                     required
                     size="small"
                 />
+
                 {/* <Button variant="contained" size="small"  sx={{marginTop:3.5}}> <ArrowForwardIosIcon /> <ArrowForwardIosIcon /></Button> */}
                 {/* <ArrowForwardIosIcon className='next-btn'></ArrowForwardIosIcon> */}
                 <Button variant="text"sx={{marginTop:3.5}} onClick={()=>{next()}}><ArrowForwardIosIcon /></Button>
             </div>
-             {subform?<Subform />:""}
+             {subform?<Subform data={formdata}/>:""}
             
             
            <hr />

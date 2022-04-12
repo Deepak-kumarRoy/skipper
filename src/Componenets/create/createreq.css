@@ -32,8 +32,9 @@
 .listItem {
   margin-top: 70px;
   border-radius: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: monospace;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
   display: flex;
   flex-direction: row;
   background: radial-gradient(#60efbc, #58d5c9);
@@ -48,12 +49,13 @@
 
 .listItem:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  cursor:pointer;
 }
 
 .list  {
   margin-left: auto;
   margin-right: auto;
-  width: 19em;
+  width: 20em;
   /* display: flex;
  flex-direction: column;
   align-items: center;

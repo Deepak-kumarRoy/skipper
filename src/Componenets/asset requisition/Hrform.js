@@ -6,8 +6,12 @@ import Card from '@mui/material/Card';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -91,7 +95,7 @@ export default function Hrform() {
 
     const [reqname, setReqname] = useState('');
     const [mob, setMob] = useState('');
-    const [reqdate, setReqdate] = useState('2021-05-24');
+    const [reqdate, setReqdate] = useState('');
     const [hod, setHod] = useState('');
     const [hodemail, setHodEmail] = useState('');
     const [itheademail, setItheadEmail] = useState('');
@@ -101,7 +105,7 @@ export default function Hrform() {
     const [mobaccess, setMobAccess] = useState('');
     const [id, setId] = useState('');
     const [location, setLocation] = useState('');
-    const [jdate, setJdate] = useState('2021-05-24');
+    const [jdate, setJdate] = useState('');
     const [ename, setEname] = useState('');
     const [empmob, setEmpMob] = useState('');
     const [empid, setEmpId] = useState('');
@@ -110,8 +114,70 @@ export default function Hrform() {
     const [costcenter, setCostCenter] = useState('');
     const [resemail, setResEmail] = useState('');
     const [comm, setComm] = useState('');
+    const [message, setMessage] = useState('');
+    const [open, setOpen] = useState(false);
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    let navigate = useNavigate();
+
+    const move = () => {
+        navigate('/dashboard')
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+
+    const submit = (e) => {                     
+        e.preventDefault();
+        var wf_name =  "Asset Requisition";
+        var descr = "Asset Requisition request from Hr person";
+        var details = ({"Name Of Requistioner":reqname,"Date Of Requisition":reqdate,"Mobile Number":mob,"Name Of HOD":hod,"Email Id Of HOD":hodemail,
+        "Email Id Of IT Head":itheademail,"Proposed Item For Usage":item,"Proposed MailID":propmailid,"Mail Sending Access":mailaccess,"Id Created By Rajib":id,
+        "Location":location,"Joining Date":jdate,"Employee Name":ename,"Employee Mobile Number":empmob,"Employee ID":empid,"Employee Designation":empdesg,
+        "Cost Center":costcenter,"Respondent Email":resemail,"Comments By HR/Requistioner":comm,"Email Access On Mobile":mobaccess,"Department":dept})
+ 
+            if (!reqname || !reqdate || !mob || !hod || !hodemail || !itheademail || !item || !propmailid || !mailaccess || !id || !location || 
+                !jdate || !ename || !empmob|| !empid || !empdesg || !costcenter || !resemail || !comm || !dept || !mobaccess) {
+                alert("please fill all the fields")
+              }else{
+            if(!emailRegex.test(hodemail) || !emailRegex.test(itheademail) || !emailRegex.test(propmailid) || !emailRegex.test(resemail) || !emailRegex.test(id)){
+                alert("email format is not correct")
+            }else{
+            var Obj = window.localStorage.getItem("response");
+            var user = JSON.parse(Obj).userLogin
+            var Token = JSON.parse(Obj).accessToken;
+            
+            fetch(
+                'http://localhost:5000/authentication/formdata',
+                {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    Authentication: Token,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({details,user,wf_name,descr})
+                  
+                }
+              )
+                .then((response) => response.json())
+                .then((response) => {
+                    setMessage(response.message);
+                    setOpen(true)    
+                })
+                .catch((error) => { 
+                  console.error(error);
+                });    
+            }
+
+              }
+        ;
+    }
 
     return (
+        <>
         <Box
             component="form"
             sx={{
@@ -155,6 +221,9 @@ export default function Hrform() {
                     value={reqdate}
                     onChange={(e)=>{setReqdate(e.target.value)}}
                     required
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     size="small"
                 />
 
@@ -175,19 +244,7 @@ export default function Hrform() {
                     onChange={(e)=>{setHodEmail(e.target.value)}}
                     required
                 />
-                
-                {/* <FormControl >
-                    <p className='appearance' id="demo-radio-buttons-group-label" required>Email Id Of IT Head</p>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="subrata.roy@skipperlimited.com"
-                            name="radio-buttons-group"
-                            required
-                            >
-                    <FormControlLabel className='appear' value="subrata.roy@skipperlimited.com" control={<Radio />} label="subrata.roy@skipperlimited.com" />
-                        </RadioGroup>
-                    </FormControl> */}
-                
+                              
 
                 <TextField
                     label="Email Id Of IT Head"
@@ -289,7 +346,9 @@ export default function Hrform() {
                     value={jdate}
                     onChange={(e)=>{setJdate(e.target.value)}}
                     required
-                    // defaultValue="2017-05-24"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     size="small"
                 />
 
@@ -368,10 +427,26 @@ export default function Hrform() {
                 </FormControl>
                 </div>
                 <div className='heading'>
-                    <Button variant="contained" size="small" > Submit </Button>
+                    <Button variant="contained" size="small" onClick={submit}> Submit </Button>
                  </div>
 
             </div>
         </Box>
+
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+        {message}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={move}>OKK</Button>
+        </DialogActions>
+      </Dialog>
+
+        </>
     );
 }

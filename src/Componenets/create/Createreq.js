@@ -32,21 +32,6 @@ export default function Createreq() {
   return (
       <>
       <Navbar />
-      {/* <div className="menuhead">
-      {main.map((item,index)=>{return(
-     <Card key={index} onClick={()=>{navigateTo(index)}}>
-       <div className="submenu">
-      <CardContent>
-        <Typography variant="h6" component="div">
-            {item}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" >{item}</Button>
-      </CardActions>
-      </div>
-    </Card>)})}
-    </div> */}
 
 <div className="submenu">
 {main.map((item,index)=>{return(
@@ -61,11 +46,7 @@ export default function Createreq() {
     <h4><b>John Doe</b></h4>
   </div>
 </div>
-<div className="listItem">
-  <div className="list">
-    <h4><b>John Doe</b></h4>
-  </div>
-</div>
+
 </div>
     </>
   );

@@ -1,7 +1,13 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -32,20 +38,90 @@ const input1 = [
 
 export default function Itform() {
 
-    const [Status, setStatus] = useState('');
+    const [status, setStatus] = useState('');
     const [pname, setPname] = useState('');
     const [emailid, setEmailId] = useState('');
-    const [padate, setPadate] = useState('2021-05-24');
-    const [adate, setAdate] = useState('2021-05-24');
+    const [padate, setPadate] = useState('');
+    const [adate, setAdate] = useState('');
     const [poso, setPoso] = useState('');
     const [location, setLocation] = useState('');
     const [psnum, setPsnum] = useState('');
     const [vname, setVname] = useState('');
-    const [vsdate, setVsdate] = useState('2021-05-24');
+    const [vsdate, setVsdate] = useState('');
     const [handover, setHandover] = useState('');
     const [comm, setComm] = useState('');
+    const [message, setMessage] = useState('');
+    const [open, setOpen] = useState(false);
+
+    // adate:new Date().toISOString.slice(0,10)
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        {window.localStorage.getItem("response")? navigate('/form'):navigate('/')}
+        var Obj = window.localStorage.getItem("response");
+        setEmailId(JSON.parse(Obj).userLogin.email_id)
+        setPname(JSON.parse(Obj).userLogin.firstname)
+      },[]);
+
+    const move = () => {
+        navigate('/dashboard')
+      };
+    
+    //   const handleClose = () => {
+    //     setOpen(false);
+    //   };
+
+    const emailRegex = /\S+@\S+\.\S+/;
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        var wf_name =  "Asset Requisition";
+        var descr = "Asset Requisition request from IT person";
+
+        const details={
+            "Status":status, "Prepared By (Name)":pname,"Email Id":emailid,"Price Approval Date":padate,
+            "Approved Date":adate, "Send For PO/So":poso,"PO/SO Location":location,"PO/SO Number":psnum,"Vendor Name":vname,
+            "Vendor Supply Date":vsdate,"Assets Hand over":handover,"Comments":comm}
+        if (!status||!pname||!emailid||!padate||!adate||!poso||!location||!psnum||!vname||!vsdate||!handover||!comm) {
+            alert("please fill all the fields")
+          }else{
+        if(!emailRegex.test(emailid)){
+            alert("email format is not correct")
+        }else{
+        var Obj = window.localStorage.getItem("response");
+        var user = JSON.parse(Obj).userLogin;
+        var Token = JSON.parse(Obj).accessToken;
+        
+        fetch(
+            'http://localhost:5000/authentication/formdata',
+            {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                Authentication: Token,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({details,user,wf_name,descr})
+              
+            }
+          )
+            .then((response) => response.json())
+            .then((response) => {
+                setMessage(response.message);
+                setOpen(true)
+            })
+            .catch((error) => { 
+              console.error(error);
+            });    
+        }
+        console.log(details,user)
+        console.log(user.user_id)
+          }
+    }
 
     return (
+        <>
         <Box
             component="form"
             sx={{
@@ -70,7 +146,7 @@ export default function Itform() {
                     size="small"
                     label="Status"
                     required
-                    value={Status}
+                    value={status}
                     onChange={(e)=>{setStatus(e.target.value)}}
                 >
                     {input1.map((option) => (
@@ -97,15 +173,27 @@ export default function Itform() {
                     onChange={(e)=>{setEmailId(e.target.value)}}
                     required
                 />
+                {/* <p className={`message ${isValid ? 'success' : 'error'}`}>
+                 {message}
+                </p> */}
+
+                {/* <DatePicker selected={new Date()} 
+                label="Price Approval Date"
+                minDate={new Date()} 
+                 value={padate}
+                 onChange={(e)=>{setPadate(e.target.value)}} /> */}
 
                 <TextField
                     id="date"
                     label="Price Approval Date"
                     type="date"
+                    minDate={new Date()}
                     value={padate}
                     onChange={(e)=>{setPadate(e.target.value)}}
                     required
-                    // defaultValue="2017-05-24"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     size="small"
                 />
 
@@ -116,7 +204,9 @@ export default function Itform() {
                     value={adate}
                     onChange={(e)=>{setAdate(e.target.value)}}
                     required
-                    // defaultValue="2017-05-24"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     size="small"
                 />
 
@@ -171,7 +261,9 @@ export default function Itform() {
                     value={vsdate}
                     onChange={(e)=>{setVsdate(e.target.value)}}
                     required
-                    // defaultValue="2017-05-24"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
                     size="small"
                 />
 
@@ -202,10 +294,26 @@ export default function Itform() {
                 />
 
                 <div className='heading'>
-                    <Button variant="contained"  size="small" sx={{ marginTop:3.5,ml:8 }}> Submit </Button><hr />
+                    <Button variant="contained" onClick={submit} size="small" sx={{ marginTop:3.5,ml:8 }}> Submit </Button><hr />
                 </div>
 
             </div>
         </Box>
+
+        <Dialog
+        open={open}
+        // onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+        {message}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={move}>OKK</Button>
+        </DialogActions>
+      </Dialog>
+
+        </>
     );
 }
