@@ -2,7 +2,6 @@ import React, {useEffect,useState} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -75,10 +74,10 @@ export default function PersistentDrawerLeft() {
   var path; 
   var main;
 
-  menu.map((item,index)=>{
-    main = item.m_display_text;
-    path = item.m_logical_path;
-  })
+  // menu.map((item,index)=>{
+  //   main = item.m_display_text;
+  //   path = item.m_logical_path;
+  // })
  
 
   let navigate = useNavigate();
@@ -163,11 +162,11 @@ export default function PersistentDrawerLeft() {
             Dashboard
             </ListItem>
           {/* <Divider  sx={{ marginBottom:1}} /> */}
-        {main.map((list,index)=>{
+        {menu.map((list,index)=>{
             return(<div key={index}>
-            <ListItem button key={list} sx={{ marginY:1,color:"	#E8E8E8"}} onClick={()=>{navigateTo(index)}}> 
+            <ListItem button key={list} sx={{ marginY:1,color:"	#E8E8E8"}} onClick={() => { navigate(list.a_logical_path) }}> 
             
-            {list}
+            {list.a_display_text}
             </ListItem>
             {/* <Divider   /> */}
             </div>)

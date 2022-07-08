@@ -4,7 +4,7 @@ import Navbar from '../Navbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-import { keyboard } from '@testing-library/user-event/dist/keyboard';
+import API from '../../Utilities/Api';
 
 
 const columns = [
@@ -34,8 +34,7 @@ export default function Notification() {
 
 useEffect(()=>{
 
-  fetch(
-    'http://localhost:5000/authentication/status',
+  fetch( API.status ,
     {
       method: 'POST',
       headers: {
@@ -75,9 +74,31 @@ useEffect(()=>{
   })
 
   function handleData(e){
-    
-    navigate('/editrequest/'+e.id) ;
-      console.log(e)
+    var id = e.id;
+
+    fetch( API.redo ,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authentication: Token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id}),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        // setValue(response.data)
+        // console.log(Object.keys(response).length)
+        console.log(response.formdata)
+        if(response.formdata !==undefined){
+          navigate('/editrequest/'+response.wf)
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     
   }
 

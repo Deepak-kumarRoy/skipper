@@ -10,6 +10,7 @@ import StepLabel from "@mui/material/StepLabel";
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Button from '@mui/material/Button';
+import API from '../../Utilities/Api';
 import './editrequest.css';
 import Box from '@mui/material/Box';
 
@@ -29,8 +30,7 @@ export default function Editrequest() {
   var Token = JSON.parse(Obj).accessToken;
 
   useEffect(() => {
-    fetch(
-      'http://localhost:5000/authentication/wf_data',
+    fetch( API.wf_data ,
       {
         method: 'POST',
         headers: {
@@ -57,28 +57,31 @@ export default function Editrequest() {
 
   const submit = () => {
 
-    // fetch(
-    //   'http://localhost:5000/authentication/approve',
-    //   {
-    //     method: 'PUT',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       Authentication: Token,
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({'id':id}),
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     alert(response.message)
-    //     navigate('/approvereq')
-    //   })
-    //   .catch((error) => { 
+    fetch( API.resubmit ,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authentication: Token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id, value}),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        alert(response.message)
+        navigate('/approvereq')
+      })
+      .catch((error) => { 
 
-    //     console.error(error);
-    //   });
+        console.error(error);
+      });
     console.log(value);
+  }
+
+  const handleChange = (abc, key) => {
+    value[key] = abc;
   }
 
   return (
@@ -105,7 +108,9 @@ export default function Editrequest() {
                 label={item}
                 id="outlined-size-small"
                 size="small"
-                value={value[item]}
+                defaultValue={value[item]}
+                // value={}
+                onChange={(e)=>handleChange(e.target.value, item)}
               // onChange={(e)=>{setEdit(e.target.name)}}
               />)
           })}

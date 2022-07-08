@@ -12,6 +12,7 @@ import FormGroup from '@mui/material/FormGroup';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import API from '../../Utilities/Api';
 
 export default function Login() {
     const theme = useTheme();
@@ -38,8 +39,7 @@ export default function Login() {
         {
             alert("Fields Cannot be empty");
         }else{
-        fetch(
-            'http://localhost:5000/authentication/login',
+        fetch(API.login,
             {
               method: 'POST',
               headers: {
@@ -51,6 +51,7 @@ export default function Login() {
           )
             .then((response) => response.json())
             .then((response) => {
+                // console.log(response)
                 if (response.Message === "invalid credentials" || response.Message === "password is wrong")
                 {
                     alert(response.Message);

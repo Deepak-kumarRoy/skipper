@@ -12,11 +12,9 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import API from '../../Utilities/Api';
 import './form.css';
-import FormLabel from '@mui/material/FormLabel';
+
 
 const input = [
     {
@@ -149,8 +147,7 @@ export default function Hrform() {
             var user = JSON.parse(Obj).userLogin
             var Token = JSON.parse(Obj).accessToken;
             
-            fetch(
-                'http://localhost:5000/authentication/formdata',
+            fetch( API.formdata ,
                 {
                   method: 'POST',
                   headers: {

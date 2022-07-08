@@ -8,13 +8,10 @@ import Notification from './Componenets/notification/Notification'
 import Dashboard from './Componenets/dasboard/Dashboard';
 import Signup from './Componenets/signup/Signup';
 import Form from './Componenets/asset requisition/Form';
-import Test from './Componenets/Test'
-import Message from './Componenets/dailogue/Message'
 import Empsep from './Componenets/employee seperation/Empsep';
 import Subform from './Componenets/employee seperation/Subform';
 import MaterialPurchased from './Componenets/material/MaterialPurchased';
 import Editrequest from './Componenets/edit/Editrequest';
-
 import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import './App.css';
 import Createreq from './Componenets/create/Createreq';
@@ -36,9 +33,7 @@ function App() {
         <Route exact path='/subform' element={<Subform />} ></Route>
         <Route exact path='/dashboard' element={<Dashboard />}></Route>
         <Route exact path='/home' element={<Home />} ></Route>
-        <Route exact path='/test' element={<Test />} ></Route>
         <Route exact path='/display/:id' element={<Display />} ></Route>
-        <Route exact path='/message' element={<Message />} ></Route>
         <Route exact path='/editrequest/:id' element={<Editrequest />} ></Route>
         <Route exact path='/createreq' element={<Createreq />} ></Route>
         <Route exact path='/materialpurchased' element={<MaterialPurchased />} ></Route>

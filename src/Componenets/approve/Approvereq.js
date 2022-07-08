@@ -4,9 +4,11 @@ import Navbar from '../Navbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
+import API from "../../Utilities/Api";
 
 const columns = [
-  { field: 'id', headerName: 'Requester', width: 100},
+  { field: 'id', headerName: 'Req ID', width: 100},
+  { field: 'requester', headerName: 'Requester', width: 100},
   { field: 'description', headerName: 'Description', width: 440 },
   { field: 'wf_name', headerName:'Workflow',width: 150},
   { field: 'dode', headerName: 'DODE', width: 210},
@@ -33,8 +35,7 @@ export default function Approvereq() {
 
 useEffect(()=>{
 
-  fetch(
-    'http://localhost:5000/authentication/workflow',
+  fetch(API.workflow ,
     {
       method: 'POST',
       headers: {
@@ -60,7 +61,8 @@ useEffect(()=>{
 
   const rowdata = value?.map(list => {
     return{
-      id: list?.u_firstname,
+      id: list?.wi_id,
+      requester:list?.u_firstname,
       description:list?.wf_descr,
       wf_name:list?.wf_wf_name,
       dode:list?.wi_dode,

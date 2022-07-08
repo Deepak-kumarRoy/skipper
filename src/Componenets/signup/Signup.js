@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
+import API from "../../Utilities/Api";
 import './signup.css';
 
 export default function Signup() {
@@ -41,8 +42,7 @@ export default function Signup() {
         {
             alert("fields cannot be empty");
         }else{
-            fetch(
-                'http://localhost:5000/authentication/signup',
+            fetch(API.signup,
                 {
                   method: 'POST',
                   headers: {

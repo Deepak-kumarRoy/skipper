@@ -9,6 +9,7 @@ import Card from '@mui/material/Card';
 import { useNavigate } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import API from '../../Utilities/Api';
 import './empsep.css';
 
 const asset = [
@@ -236,8 +237,7 @@ export default function Itform(props) {
                 var user = JSON.parse(Obj).userLogin
                 var Token = JSON.parse(Obj).accessToken;
 
-                fetch(
-                    'http://localhost:5000/authentication/formdata',
+                fetch( API.formdata ,
                     {
                         method: 'POST',
                         headers: {
