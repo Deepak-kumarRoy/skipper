@@ -34,7 +34,7 @@ export default function Notification() {
 
 useEffect(()=>{
 
-  fetch( API.status ,
+  fetch(API.status ,
     {
       method: 'POST',
       headers: {

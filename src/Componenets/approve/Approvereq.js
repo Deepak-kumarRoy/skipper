@@ -81,7 +81,7 @@ useEffect(()=>{
            PENDING REQUESTS
         </Typography>
         </div> 
-    <div className='back'  style={{ height: 370, width: '95%', }}>
+    <div className='back'  >
       
       <DataGrid
         // key={}

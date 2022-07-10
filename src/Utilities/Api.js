@@ -8,27 +8,27 @@ const API = {
 
     //approvereq endpoints
 
-    workflow: HOST+"/authentication/workflow",
+    workflow: HOST+"/api/workflow",
 
     //Display endpoints
 
-    reject: HOST+"authentication/reject",
-    wf_data: HOST+"authentication/wf_data",
-    approve: HOST+"authentication/approve",
-    reassign: HOST+"authentication/reassign",
+    reject: HOST+"/api/reject",
+    wf_data: HOST+"/api/wf_data",
+    approve: HOST+"/api/approve",
+    reassign: HOST+"/api/reassign",
 
     // Hrform endpoints
 
-    formdata: HOST+"authentication/formdata",
+    formdata: HOST+"/api/formdata",
 
     // editrequest endpoints
 
-    resubmit: HOST+"authentication/resubmit",
+    resubmit: HOST+"/api/resubmit",
 
     // notification endpoints
 
-    redo: HOST+"authentication/redo",
-    status: HOST+"authentication/status",
+    redo: HOST+"/api/redo",
+    status: HOST+"/api/status",
 
 }
 
